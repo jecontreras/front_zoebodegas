@@ -33,13 +33,15 @@ import { RegistrosComponent } from './layout/registro/registro.component';
 import { TerminosComponent } from './layout/terminos/terminos.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { TestimoniosComponent } from './components/testimonios/testimonios.component';
+import { CiudadesComponent } from './layout/ciudades/ciudades.component';
 
 @NgModule({
   entryComponents:[
     LoginComponent,
     RegistroComponent,
     ViewProductosComponent,
-    TerminosComponent
+    TerminosComponent,
+    CiudadesComponent
   ],
   declarations: [
     AppComponent,
@@ -55,7 +57,8 @@ import { TestimoniosComponent } from './components/testimonios/testimonios.compo
     MenuLateralComponent,
     ProductoViewComponent,
     FooterComponent,
-    TestimoniosComponent
+    TestimoniosComponent,
+    CiudadesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -82,7 +85,8 @@ import { TestimoniosComponent } from './components/testimonios/testimonios.compo
     RegistroComponent,
     ViewProductosComponent
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

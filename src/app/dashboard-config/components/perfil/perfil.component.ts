@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { STORAGES } from 'src/app/interfaces/sotarage';
 import { Store } from '@ngrx/store';
 import { UserAction } from 'src/app/redux/app.actions';
+import { departamento } from 'src/app/JSON/departamentos';
 
 const URL = environment.url;
 const URLFRON = environment.urlFront;
@@ -27,6 +28,9 @@ export class PerfilComponent implements OnInit {
   urlRegistro:string = `${ URLFRON }/registro/`;
   restaure:any = {};
   disableRestaure:boolean = false;
+
+  listDepartamento:any = departamento;
+  listCiudad:any = [];
 
   constructor(
     private _model: ServiciosService,
@@ -47,6 +51,7 @@ export class PerfilComponent implements OnInit {
     if(this.data.usu_fec_nacimiento) this.data.usu_fec_nacimiento = moment(this.data.usu_fec_nacimiento).format('DD/MM/YYYY');
     this.urlTienda+=this.data.id;
     this.urlRegistro+=this.data.id;
+    this.selectDepartamento();
   }
 
   onSelect(event:any) {
@@ -71,6 +76,13 @@ export class PerfilComponent implements OnInit {
     },(error)=>{console.error(error); this._tools.presentToast("Error de servidor")});
 
   }
+  
+  selectDepartamento( ){
+    console.log("hola", this.data.usu_pais);
+    let filtro:any = this.listDepartamento.find((row:any)=> row.departamento == this.data.usu_pais );
+    if( !filtro ) return false;
+    this.listCiudad = filtro.ciudades;
+  }
 
   CambiarPassword(){
     this._user.cambioPass({ id: this.data.id, password: this.restaure.passNew })
@@ -80,6 +92,7 @@ export class PerfilComponent implements OnInit {
 
   Actualizar(){
     this.data = _.omit(this.data, ['usu_perfil', 'cabeza', 'nivel']);
+    this.data = _.omitBy( this.data, _.isNull);
     this._user.update(this.data).subscribe((res:any)=>{
       //console.log(res);
       this._tools.presentToast("Actualizado");

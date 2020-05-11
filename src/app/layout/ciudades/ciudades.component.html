@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>
+    <span> SELECCIONAR EN QUE CIUDAD TE UBICAS PARA CONTINUAR</span>
+</h2>
+
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="col-12 row content">
+            <label class="form-group col">
+                <input [(ngModel)]="datoBusqueda" type="search" class="form-control form-control-sm"
+                    placeholder="Buscar Departamento" (change)="buscar()" aria-controls="datatables"></label>
+            <div>
+                <button (click)="buscar()" mat-raised-button mat-min-fab
+                    class="btn btn-primary btn-just-icon btn-round">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>  
+        </div>
+        <div *ngFor="let item of listRow">
+            <header class="main-box-header clearfix col-12 row">
+                <h2 class="col">{{ item.departamento }}</h2>
+            </header>
+            <div class="chip pointer" *ngFor="let ciudad of item.ciudades" (click)="seleccion(ciudad)">
+                {{ ciudad }}
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

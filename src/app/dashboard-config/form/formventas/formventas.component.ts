@@ -24,7 +24,7 @@ const URL = environment.url;
 export class FormventasComponent implements OnInit {
 
   data: any = {
-    ven_tipo: 'carrito'
+    ven_tipo: 'whatsapp'
   };
   clone: any = {};
   id: any;
@@ -43,6 +43,7 @@ export class FormventasComponent implements OnInit {
 
   disableBtnFile:boolean = false;
   urlImagen:any;
+  aumentarPrecio:number = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -63,6 +64,8 @@ export class FormventasComponent implements OnInit {
       this.dataUser = store.user || {};
       if (this.dataUser.usu_perfil.prf_descripcion == 'administrador' || this.dataUser.usu_perfil.prf_descripcion == 'subAdministrador') this.superSub = true;
       else this.superSub = false;
+
+      if( store.ciudad ) if( store.ciudad.ciudad != 'Cúcuta') this.aumentarPrecio = 10000;
     });
 
   }
@@ -90,6 +93,7 @@ export class FormventasComponent implements OnInit {
   getArticulos() {
     this._productos.get({ where: { pro_activo: 0 }, limit: 10000 }).subscribe((res: any) => {
       this.listProductos = res.data;
+      for(let row of this.listProductos) row.pro_uni_venta = Number(row.pro_uni_venta+this.aumentarPrecio);
     }, (error) => { console.error(error); this._tools.presentToast("Error de servidor") });
   }
 
@@ -203,8 +207,8 @@ export class FormventasComponent implements OnInit {
     let cabeza:any = this.dataUser.cabeza || {};
     let numeroSplit = _.split( cabeza.usu_telefono, "+57", 2);
     if( numeroSplit[1] ) cabeza.usu_telefono = numeroSplit[1];
-    if( cabeza.usu_perfil == 3 ) cerialNumero = ( cabeza.usu_indicativo || '57' ) + ( cabeza.usu_telefono || '3148487506' );
-    else cerialNumero = "573148487506";
+    if( cabeza.usu_perfil == 3 ) cerialNumero = ( cabeza.usu_indicativo || '57' ) + ( cabeza.usu_telefono || '3104820804' );
+    else cerialNumero = "573104820804";
     let mensaje: string = `https://wa.me/${ cerialNumero }?text=info del cliente ${res.ven_nombre_cliente} telefono ${res.ven_telefono_cliente || ''} direccion ${res.ven_direccion_cliente} fecha del pedido ${res.ven_fecha_venta} Hola Servicio al cliente, 
     como esta, cordial saludo. Sería tan amable despachar este pedido a continuación datos de la venta:� producto: `;
     if (res.ven_tipo == 'whatsapp') {
@@ -213,6 +217,11 @@ export class FormventasComponent implements OnInit {
       mensaje += `${res.pro_clave_int.pro_nombre} imagen: ${res.pro_clave_int.foto} codigo: ${res.pro_clave_int.pro_codigo} talla: ${res.ven_tallas} `
     }
     window.open(mensaje);
+  }
+
+  validarNumero(){
+    if( this.aumentarPrecio ) return "573144600019"
+    else return "573104820804";
   }
 
   OrdenValidadWhatsapp( res:any ){

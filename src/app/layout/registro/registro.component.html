@@ -32,8 +32,16 @@
             <input type="text" [(ngModel)]="data.usu_telefono" class="form-control form-control-sm" placeholder="Ingrese tu Celular">
         </div>
         <div class="form-group col-6">
+            <label for="exampleFormControlInput1">Departamento</label>
+            <select class="form-control form-control-sm" [(ngModel)]="data.usu_pais" (change)="selectDepartamento( )">
+                <option [value]="item.departamento" *ngFor="let item of listDepartamento">{{ item.departamento }} </option>
+            </select>
+        </div>
+        <div class="form-group col-6">
             <label for="exampleFormControlInput1">Ciudad</label>
-            <input type="text" [(ngModel)]="data.usu_ciudad" class="form-control form-control-sm" placeholder="Ingrese tu Ciudad">
+            <select class="form-control form-control-sm" [disabled]="!data.usu_pais" [(ngModel)]="data.usu_ciudad" (change)="selectDepartamento( )">
+                <option [value]="item" *ngFor="let item of listCiudad">{{ item }} </option>
+            </select>
         </div>
         <div class="form-group col-6">
             <label for="exampleFormControlInput1">Dirección</label>
@@ -64,6 +72,7 @@
                     <span>Registrarse</span>
                 </button>
             </div>
+            <br><br><br><br>
         </div>
     </div>
 </div>

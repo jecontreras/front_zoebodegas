@@ -120,6 +120,29 @@ export function appReducer(state: STORAGES = APP, action: _action.actions) {
         break;
       }
     }
+    case _action.CIUDAD: {
+      switch(action.opt) {
+        case 'post' :
+          if(!state.ciudad) state.ciudad = {};
+            state.ciudad = action.payload;
+            return local_Storage(state);
+        break;
+        case 'put': {
+          state.ciudad = action.payload;
+        }
+        return local_Storage(state);
+        break;
+        case 'delete': 
+          state.ciudad = {};
+          return local_Storage(state);
+        break;
+        case 'drop': {
+          state.ciudad = {};
+          return local_Storage(state);
+        }
+        break;
+      }
+    }
     
     /*case _action.ARTICULOS:{
       switch (action.opt){

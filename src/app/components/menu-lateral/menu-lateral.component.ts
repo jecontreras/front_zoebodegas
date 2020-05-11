@@ -33,14 +33,14 @@ export class MenuLateralComponent implements OnInit {
   }
   rellenoRedes(){
     if(this.dataUser.id || !this.userId.id) {
-      this.urlFacebook = `https://www.facebook.com/CLICKEAMEVICTORLANDAZURY?fref=search&__tn__=%2Cd%2CP-R&eid=ARBwh7n8hr6OUXCIoOSMGvfyrxPaixr69annbby3aYVJvFo0_NKpHRBDRYhNAdxpF5-prIsBz_6Lsush`;
-      this.urlInstagram = `http://bit.ly/quieroempezaryamismo`;
-      this.urlWhatsapp = `http://bit.ly/grupovende`;
+      this.urlFacebook = `https://m.facebook.com/zoetiendavirtual/?locale2=es_LA`;
+      this.urlInstagram = `https://www.instagram.com/paulazoetiendavirtual/?igshid=13tywsf6ggepg`;
+      this.urlWhatsapp = `https://api.whatsapp.com/send?phone=573104820804&text=Hola%20Servicio%20al%20cliente%2c%20como%20esta%2c%20saludo%20cordial%2c%20`;
       this.urlYoutube = `http://bit.ly/YOUTUBEZAFIRO`;
     }else{
-      this.urlFacebook = this.userId.url_facebook || `https://www.facebook.com/CLICKEAMEVICTORLANDAZURY?fref=search&__tn__=%2Cd%2CP-R&eid=ARBwh7n8hr6OUXCIoOSMGvfyrxPaixr69annbby3aYVJvFo0_NKpHRBDRYhNAdxpF5-prIsBz_6Lsush`;
-      this.urlInstagram = this.userId.url_instagram || `http://bit.ly/quieroempezaryamismo`;
-      this.urlWhatsapp = this.userId.usu_indicativo || `http://bit.ly/grupovende`;
+      this.urlFacebook = this.userId.url_facebook || `https://m.facebook.com/zoetiendavirtual/?locale2=es_LA`;
+      this.urlInstagram = this.userId.url_instagram || `https://www.instagram.com/paulazoetiendavirtual/?igshid=13tywsf6ggepg`;
+      this.urlWhatsapp = this.userId.usu_indicativo || `https://api.whatsapp.com/send?phone=573104820804&text=Hola%20Servicio%20al%20cliente%2c%20como%20esta%2c%20saludo%20cordial%2c%20`;
       this.urlYoutube = this.userId.url_youtube || `http://bit.ly/YOUTUBEZAFIRO`;
     }
   }

@@ -55,17 +55,29 @@
                     <label>Apellido(s)</label>
                     <input type="text" [(ngModel)]="data.usu_apellido" class="form-control form-control-sm">
                 </div>
-                <div class="col-6">
+                <!-- <div class="col-6">
                     <label>Pais</label>
                     <input type="text" [(ngModel)]="data.usu_pais" class="form-control form-control-sm">
-                </div>
+                </div> -->
                 <div class="col-6">
                     <label>Celular</label>
                     <input type="text" [(ngModel)]="data.usu_telefono" class="form-control form-control-sm">
                 </div>
-                <div class="col-6">
+                <!-- <div class="col-6">
                     <label>Ciudad</label>
                     <input type="text" [(ngModel)]="data.usu_ciudad" class="form-control form-control-sm">
+                </div> -->
+                <div class="form-group col-6">
+                    <label for="exampleFormControlInput1">Departamento</label>
+                    <select class="form-control form-control-sm" [(ngModel)]="data.usu_pais" (change)="selectDepartamento( )">
+                        <option [value]="item.departamento" *ngFor="let item of listDepartamento">{{ item.departamento }} </option>
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label for="exampleFormControlInput1">Ciudad</label>
+                    <select class="form-control form-control-sm" [disabled]="!data.usu_pais" [(ngModel)]="data.usu_ciudad" (change)="selectDepartamento( )">
+                        <option [value]="item" *ngFor="let item of listCiudad">{{ item }} </option>
+                    </select>
                 </div>
                 <div class="col-6">
                     <label>Dirección</label>
@@ -125,6 +137,7 @@
                     <button class="p-2 btn btn-primary btn-just-icon btn-round" (click)="CambiarPassword()" *ngIf="disableRestaure">
                         Actualizar Contraseña
                     </button>
+                    <br><br><br><br>
                 </div>
             </div>
           </div>

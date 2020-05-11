@@ -9,6 +9,7 @@ import { UserAction } from 'src/app/redux/app.actions';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material';
 import { TerminosComponent } from '../terminos/terminos.component';
+import { departamento } from 'src/app/JSON/departamentos';
 
 const indicativos = Indicativo;
 
@@ -24,6 +25,9 @@ export class RegistrosComponent implements OnInit {
   dataUser:any = {};
   cabeza:any;
   disableSubmit:boolean = true;
+
+  listDepartamento:any = departamento;
+  listCiudad:any = [];
 
   constructor(
     private _user: UsuariosService,
@@ -47,7 +51,16 @@ export class RegistrosComponent implements OnInit {
     this._user.get({where:{ id: this.cabeza }}).subscribe((res:any)=>{ console.log(res); this.dataUser = res.data[0]; this.data.cabeza = this.dataUser.id; }, (error)=>console.error(error) );
   }
 
+  selectDepartamento( ){
+    console.log("hola", this.data.usu_pais);
+    let filtro:any = this.listDepartamento.find((row:any)=> row.departamento == this.data.usu_pais );
+    if( !filtro ) return false;
+    this.listCiudad = filtro.ciudades;
+  }
+
   submit(){
+    if( !this.data.usu_pais ) return this._tools.presentToast("Error es necesario colocar el Departamento donde te ubicas");
+    if( !this.data.usu_ciudad ) return this._tools.presentToast("Error es necesario colocar la Ciudad donde te ubicas");
     if(!this.disableSubmit) return false;
     this.disableSubmit = false;
     this._user.create(this.data).subscribe((res:any)=>{
