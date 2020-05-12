@@ -181,8 +181,8 @@ export class PedidosComponent implements OnInit {
       numeroSplit = _.split( cabeza.usu_telefono, "+57", 2);
       if( numeroSplit[1] ) cabeza.usu_telefono = numeroSplit[1];
       if( cabeza.usu_perfil == 3 ) cerialNumero = ( cabeza.usu_indicativo || '57' ) + ( cabeza.usu_telefono || '3104820804' );
-      else cerialNumero = this.validarNumero();
-    }else cerialNumero = this.validarNumero();
+      else cerialNumero = "57"+this.validarNumero();
+    }else cerialNumero = "57"+this.validarNumero();
     if(this.userId.id) this.urlwhat = `https://wa.me/${ this.userId.usu_indicativo || 57 }${ ( (_.split( this.userId.usu_telefono , "+57", 2))[1] ) || '3104820804'}?text=Hola Servicio al cliente, como esta, saludo cordial, estoy interesad@ en mas informacion ${obj.pro_nombre} codigo ${obj.pro_codigo} foto ==> ${ obj.foto } Talla: ${ obj.tallasSelect }`;
     else {
       this.urlwhat = `https://wa.me/${ cerialNumero }?text=Hola Servicio al cliente, como esta, saludo cordial, estoy interesad@ en mas informacion ${obj.pro_nombre} codigo ${obj.pro_codigo} foto ==> ${ obj.foto } Talla: ${ obj.tallasSelect }`;

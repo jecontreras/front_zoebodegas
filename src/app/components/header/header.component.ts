@@ -227,13 +227,13 @@ export class HeaderComponent implements OnInit {
         url: '/pedidos',
         submenus:[]
       },
-      {
-        icons: 'announcement',
-        nombre: 'Testimonios',
-        disable: true,
-        url: '/testimonio',
-        submenus:[]
-      },
+      // {
+      //   icons: 'announcement',
+      //   nombre: 'Testimonios',
+      //   disable: true,
+      //   url: '/testimonio',
+      //   submenus:[]
+      // },
       {
         icons: 'account_circle',
         nombre: 'Mi Cuenta',
@@ -247,27 +247,27 @@ export class HeaderComponent implements OnInit {
         url: '/config/bancos',
         submenus:[]
       },*/
-      {
-        icons: 'shop',
-        nombre: 'Mis Cobros',
-        disable: this.rolUser !== 'visitante',
-        url: '/config/cobros',
-        submenus:[]
-      },
+      // {
+      //   icons: 'shop',
+      //   nombre: 'Mis Cobros',
+      //   disable: this.rolUser !== 'visitante',
+      //   url: '/config/cobros',
+      //   submenus:[]
+      // },
       {
         icons: 'local_grocery_store',
-        nombre: 'Mis Ventas',
+        nombre: 'Mis Compras',
         disable: this.rolUser !== 'visitante',
         url: '/config/ventas',
         submenus:[]
       },
-      {
-        icons: 'people_alt',
-        nombre: 'Mis Referidos',
-        disable: this.rolUser !== 'visitante',
-        url: '/config/referidos',
-        submenus:[]
-      },
+      // {
+      //   icons: 'people_alt',
+      //   nombre: 'Mis Referidos',
+      //   disable: this.rolUser !== 'visitante',
+      //   url: '/config/referidos',
+      //   submenus:[]
+      // },
       /*{
         icons: 'security',
         nombre: 'Seguridad',
@@ -383,10 +383,12 @@ export class HeaderComponent implements OnInit {
 
   salir(){
     localStorage.removeItem('user');
-    localStorage.removeItem('APP');
     let accion = new UserAction( this.dataUser, 'delete');
     this._store.dispatch(accion);
-    location.reload();
+    localStorage.removeItem('APP');
+    setTimeout(()=>{
+      location.reload();
+    }, 2000)
   }
 
 }
