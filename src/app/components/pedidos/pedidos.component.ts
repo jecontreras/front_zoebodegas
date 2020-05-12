@@ -66,7 +66,7 @@ export class PedidosComponent implements OnInit {
       //console.log(store);
       store = store.name;
       if(!store) return false;
-      this.userId = store.usercabeza;
+      this.userId = store.usercabeza || {};
       this.dataUser = store.user || {};
       if( store.ciudad ) {
         if( store.ciudad.ciudad != 'Cúcuta') this.aumentarPrecio = 10000;
