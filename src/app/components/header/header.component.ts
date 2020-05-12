@@ -66,7 +66,9 @@ export class HeaderComponent implements OnInit {
       //console.log(store);
       store = store.name;
       if(!store) return false;
-      if( store.ciudad ) if( store.ciudad.ciudad != 'Cúcuta') this.aumentarPrecio = 10000;
+      if( store.ciudad ) {
+        if( store.ciudad.ciudad != 'Cúcuta') this.aumentarPrecio = 10000;
+      }else this.aumentarPrecio = 1;
       this.listCart = store.cart || [];
       this.userId = store.usercabeza || {};
       this.dataUser = store.user || {};
@@ -120,7 +122,6 @@ export class HeaderComponent implements OnInit {
   }
 
   clickNotificando( obj:any ){
-    console.log(obj);
     this.estadoNotificaciones(obj);
     if(obj.venta){
       this._venta.get({ where:{ id: obj.venta } }).subscribe((res:any)=>{
@@ -162,19 +163,19 @@ export class HeaderComponent implements OnInit {
     let numeroSplit:any;
     let cabeza:any = this.dataUser.cabeza;
     if( cabeza ) {
-      console.log(cabeza)
       numeroSplit = _.split( cabeza.usu_telefono, "+57", 2);
       if( numeroSplit[1] ) cabeza.usu_telefono = numeroSplit[1];
-      if( cabeza.usu_perfil == 3 ) cerialNumero = ( cabeza.usu_indicativo || '57' ) + ( cabeza.usu_telefono || '3104820804' );
-      else cerialNumero = `${ this.userId.usu_indicativo || 57 }${ this.userId.usu_telefono || '3104820804'}`;
-    }else cerialNumero = this.validarNumero();
-    if( this.userId.id ) this.urlwhat = `https://wa.me/${ this.userId.usu_indicativo || 57 }${ ( (_.split( this.userId.usu_telefono , "+57", 2))[1] ) || 3104820804 }?text=Hola Servicio al cliente, como esta, saludo cordial, estoy interesad@ en comprar los siguientes ${texto}`
+      if( cabeza.usu_perfil == 3 ) cerialNumero = ( cabeza.usu_indicativo || '57' ) + ( cabeza.usu_telefono || this.validarNumero() );
+      else cerialNumero = `${ this.userId.usu_indicativo || 57 }${ this.userId.usu_telefono || this.validarNumero() }`;
+    }else cerialNumero = "57" +this.validarNumero();
+    if( this.userId.id ) this.urlwhat = `https://wa.me/${ this.userId.usu_indicativo || 57 }${ ( (_.split( this.userId.usu_telefono , "+57", 2))[1] ) || this.validarNumero() }?text=Hola Servicio al cliente, como esta, saludo cordial, estoy interesad@ en comprar los siguientes ${texto}`
     else this.urlwhat = `https://wa.me/${ cerialNumero  }?text=Hola Servicio al cliente, como esta, saludo cordial, estoy interesad@ en comprar los siguientes ${texto}`
   }
 
   validarNumero(){
-    if( this.aumentarPrecio ) return "573144600019"
-    else return "573104820804";
+    if( this.aumentarPrecio == 1 ) return "3138714787"
+    if( this.aumentarPrecio > 1 ) return "3144600019"
+    else return "3104820804";
   }
 
   ngOnDestroy(): void {
@@ -382,6 +383,7 @@ export class HeaderComponent implements OnInit {
 
   salir(){
     localStorage.removeItem('user');
+    localStorage.removeItem('APP');
     let accion = new UserAction( this.dataUser, 'delete');
     this._store.dispatch(accion);
     location.reload();

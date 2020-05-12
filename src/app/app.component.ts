@@ -32,7 +32,7 @@ export class AppComponent {
   validadorCiudad(){
     if(this.dataUser.usu_ciudad){
       let data:any = {
-        ciudad: this.dataUser.usu_ciudad
+        ciudad: this.dataUser.usu_ciudad || 'Cúcuta'
       };
       let accion = new CiudadAction(data, 'post');
       this._store.dispatch( accion );

@@ -220,8 +220,8 @@ export class FormventasComponent implements OnInit {
   }
 
   validarNumero(){
-    if( this.aumentarPrecio ) return "573144600019"
-    else return "573104820804";
+    if( this.aumentarPrecio ) return "573104820804"
+    else return "573144600019";
   }
 
   OrdenValidadWhatsapp( res:any ){

@@ -68,7 +68,9 @@ export class PedidosComponent implements OnInit {
       if(!store) return false;
       this.userId = store.usercabeza;
       this.dataUser = store.user || {};
-      if( store.ciudad ) if( store.ciudad.ciudad != 'Cúcuta') this.aumentarPrecio = 10000;
+      if( store.ciudad ) {
+        if( store.ciudad.ciudad != 'Cúcuta') this.aumentarPrecio = 10000;
+      }else this.aumentarPrecio = 1;
     });
 
   }
@@ -113,7 +115,7 @@ export class PedidosComponent implements OnInit {
         this.loader = false;
         this.spinner.hide();
         this.listProductos = _.unionBy(this.listProductos || [], res.data, 'id');
-        for(let row of this.listProductos) row.pro_uni_venta = Number(row.pro_uni_venta+this.aumentarPrecio);
+        // for(let row of this.listProductos) row.pro_uni_venta = Number(row.pro_uni_venta+this.aumentarPrecio);
         if (res.data.length === 0 ) {
           this.notEmptyPost =  false;
         }
@@ -179,7 +181,7 @@ export class PedidosComponent implements OnInit {
       numeroSplit = _.split( cabeza.usu_telefono, "+57", 2);
       if( numeroSplit[1] ) cabeza.usu_telefono = numeroSplit[1];
       if( cabeza.usu_perfil == 3 ) cerialNumero = ( cabeza.usu_indicativo || '57' ) + ( cabeza.usu_telefono || '3104820804' );
-      else cerialNumero = "3104820804";
+      else cerialNumero = this.validarNumero();
     }else cerialNumero = this.validarNumero();
     if(this.userId.id) this.urlwhat = `https://wa.me/${ this.userId.usu_indicativo || 57 }${ ( (_.split( this.userId.usu_telefono , "+57", 2))[1] ) || '3104820804'}?text=Hola Servicio al cliente, como esta, saludo cordial, estoy interesad@ en mas informacion ${obj.pro_nombre} codigo ${obj.pro_codigo} foto ==> ${ obj.foto } Talla: ${ obj.tallasSelect }`;
     else {
@@ -189,8 +191,9 @@ export class PedidosComponent implements OnInit {
   }
 
   validarNumero(){
-    if( this.aumentarPrecio ) return "573144600019"
-    else return "573104820804";
+    if( this.aumentarPrecio == 1 ) return "3138714787"
+    if( this.aumentarPrecio > 1 ) return "3144600019"
+    else return "3104820804";
   }
   
   maxCantidad(obj:any){
